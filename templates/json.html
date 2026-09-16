@@ -19,9 +19,25 @@
     {% include '_navbar.html' %}
     <div class="container mt-3">
         <h3>JSON 練習</h3>
-        <button id="botton1">Load Data </button>
+
+        <button id="botton1" class="btn btn-secondary" mb-4>Load Data </button>
 
         <div id="userList">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <ul>
+            </ul>
 
         </div>
 
@@ -37,7 +53,9 @@
 
             // 步驟一 找到要控制的對象(ex: HTML標籤、按鈕...)
             const btn = document.querySelector('#botton1');
-            const divUser = document.querySelector('#userList');
+            //const divUser = document.querySelector('#userList>ul');  //找到 ul 標籤，並把資料放在ul標籤裡
+            const divUser = document.querySelector('#userList tbody');  //用空白不是 >，是可以一直往下層找，直到找到 tbody 標籤
+
 
             // 步驟二 使用者行為(按下按鈕 click、滑鼠移動 mousemove、鍵盤輸入keydown、keyup) --> 事件 Event
             btn.addEventListener('click', () => {
@@ -46,41 +64,75 @@
                 // btn.textContent = 'data...';
                 // btn.style.backgroundColor = 'yellow';
 
-                //讀取JSON資料(按下按鈕時讀取json資料)
-                // 1. [] array 物件陣列[index]  (陣列用索引值讀value)
-                // console.log(users[0]);
+                /*
+                讀取JSON資料(按下按鈕時讀取json資料)
+                 1. [] array 物件陣列[index]  (陣列用索引值讀value)
+                console.log(users[0]);
+                */
 
-                //2. {} object 物件 {key:value, key:value} --> obj.keu --> value
-                //console.log(users[0].UserName); //Alice
+                /*2. {} object 物件 {key:value, key:value} --> obj.keu --> value
+                console.log(users[0].UserName); //Alice
+                */
 
-                //練習讀取：
-                // console.log(users[1].id); //2
-                // console.log(users[1].UserName); //Bob
-                // console.log(users[1].UserEmail); //bob@company.com
-                // console.log(users[1].age); //34
+                /*
+                練習讀取：
+                 console.log(users[1].id); //2
+                 console.log(users[1].UserName); //Bob
+                 console.log(users[1].UserEmail); //bob@company.com
+                 console.log(users[1].age); //34
+                */
 
 
-                //Array.forEach() --> 類似 for迴圈
-                // users.forEach((user) => {
-                // console.log(user.id);
-                // console.log(user.UserName);
-                // console.log(user.UserEmail);
-                // console.log(user.age);
-
-                //})
-
-                // 把資料顯示在網頁上
-                users.forEach((user) => {
-                    divUser.textContent += user.UserName + '<br />';
-                    // textContent 會把後面全部視為字元，無法正確讀取html標籤
-
-                    // divUser.innerHTML += user.UserName + '<br />';  
-                    // // innerHTML 才可以辨識出 html標籤 --> 辨識 <br />換行
-
-                    // += 是把舊的資料讀出來再加上新的
-
+                /*Array.forEach() --> 類似 for迴圈
+                 users.forEach((user) => {
+                 console.log(user.id);
+                 console.log(user.UserName);
+                 console.log(user.UserEmail);
+                 console.log(user.age);
                 })
+                 */
+
+                /* 把資料顯示在網頁上
+                 users.forEach((user) => {
+                 divUser.textContent += user.UserName + '<br />';
+                 textContent 會把後面全部視為字元，無法正確讀取html標籤
+                */
+
+                /*
+                divUser.innerHTML += user.UserName + '<br />';  
+                // innerHTML 才可以辨識出 html標籤 --> 辨識 <br />換行
+                */
+
+                /*
+                // 加入項目標籤，但是是效能不好的方式，因為每次都會重新渲染整個ul標籤  -->不要在迴圈內渲染標籤
+                // divUser.innerHTML += '<li>' + user.UserName + '</li><li>' + user.UserEmail + '</li>'; 
+                */
+                // += 是把舊的資料讀出來再加上新的
+
+                /* const userLi = users.map((user) => {
+                    // return (`
+                        <li>${user.id}</li>
+                        <li>${user.UserName}</li>
+                        <li>${user.UserEmail}</li>
+                        <li>${user.age}</li>
+                        `)
+                })*/
+                //console.log(userLi.join('')); //把陣列轉成字串，並用空字串連接，只會顯示在 console
+
+                const userLi = users.map((user) => {
+                    return (`
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.UserName}</td>
+                        <td>${user.UserEmail}</td>
+                        <td>${user.age}</td>
+                    </tr>
+                        `)
+                })
+                divUser.innerHTML = userLi.join(''); //把陣列轉成字串，並用空字串連接，會顯示在網頁上
+
             })
+
 
 
         </script>
