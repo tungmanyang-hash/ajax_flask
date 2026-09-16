@@ -19,6 +19,8 @@
     {% include '_navbar.html' %}
     <div class="container mt-3">
         <h3>JSON 練習</h3>
+        <button id="botton1">Load Data </button>
+
         <div id="userList">
 
         </div>
@@ -33,7 +35,52 @@
                 { "id": 2, "UserName": "Bob", "UserEmail": "bob@company.com", "age": 34 },
                 { "id": 3, "UserName": "Charlie", "UserEmail": "charlie@company.com", "age": 22 }]
 
+            // 步驟一 找到要控制的對象(ex: HTML標籤、按鈕...)
+            const btn = document.querySelector('#botton1');
+            const divUser = document.querySelector('#userList');
 
+            // 步驟二 使用者行為(按下按鈕 click、滑鼠移動 mousemove、鍵盤輸入keydown、keyup) --> 事件 Event
+            btn.addEventListener('click', () => {
+
+                // 步驟三  內容、樣式改動
+                // btn.textContent = 'data...';
+                // btn.style.backgroundColor = 'yellow';
+
+                //讀取JSON資料(按下按鈕時讀取json資料)
+                // 1. [] array 物件陣列[index]  (陣列用索引值讀value)
+                // console.log(users[0]);
+
+                //2. {} object 物件 {key:value, key:value} --> obj.keu --> value
+                //console.log(users[0].UserName); //Alice
+
+                //練習讀取：
+                // console.log(users[1].id); //2
+                // console.log(users[1].UserName); //Bob
+                // console.log(users[1].UserEmail); //bob@company.com
+                // console.log(users[1].age); //34
+
+
+                //Array.forEach() --> 類似 for迴圈
+                // users.forEach((user) => {
+                // console.log(user.id);
+                // console.log(user.UserName);
+                // console.log(user.UserEmail);
+                // console.log(user.age);
+
+                //})
+
+                // 把資料顯示在網頁上
+                users.forEach((user) => {
+                    divUser.textContent += user.UserName + '<br />';
+                    // textContent 會把後面全部視為字元，無法正確讀取html標籤
+
+                    // divUser.innerHTML += user.UserName + '<br />';  
+                    // // innerHTML 才可以辨識出 html標籤 --> 辨識 <br />換行
+
+                    // += 是把舊的資料讀出來再加上新的
+
+                })
+            })
 
 
         </script>
