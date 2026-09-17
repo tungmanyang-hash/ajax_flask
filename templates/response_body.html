@@ -36,6 +36,8 @@
                 JSON處理
             </h3>
             <button id="buttonJson" class="btn btn-primary">讀取JSON</button>
+            <select id="selectTask">
+            </select>
             <div class="mt-3">
                 <img id="img1" class="img-fluid rounded border shadow-sm" style="width: 300px; height: auto;"
                     src="static/images/empty.png" />
@@ -56,20 +58,47 @@
         const btnJson = document.querySelector('#buttonJson');
         const divInfo = document.querySelector('#divInfo');
         const theImg = document.querySelector('#img1');
+        const selTask = document.querySelector('#selectTask');
 
 
         btnText.addEventListener('click', async () => {
+            const apiUrl = 'http://127.0.0.1:5000/api/text';
+            const response = await fetch(apiUrl);
+            const data = await response.text(); //api回傳的是文字，透過text()從 Response Body中取出資料
+            divInfo.textContent = data;
 
         });
 
 
         btnLoad.addEventListener('click', async () => {
-
+            const apiUrl = 'http://127.0.0.1:5000/api/image';
+            const response = await fetch(apiUrl);
+            const datas = await response.blob();//api回傳的是圖片，透過blob()從Response Body取出圖
+            theImg.src = URL.createObjectURL(datas);
         })
 
 
         btnJson.addEventListener('click', async () => {
+            const apiUrl = 'http://127.0.0.1:5000/api/json';
+            const response = await fetch(apiUrl);
+            const datas = await response.json(); // api回傳的是JSON，透過json()從Response Body取出JSON
 
+
+            //datas = []
+            //const tasks = datas.map(task => `<option value="${task.id}">${task.task}</option>`)
+
+            //下面這段跟上面那行意思一樣，上面是簡化版本(把 return跟{}拿掉了)
+            const tasks = datas.map((task) => {
+                return (
+                    `
+                      <option value="${task.id}">${task.task}</option>
+                    `
+                )
+            });
+
+            selTask.innerHTML = tasks.join('');
+
+            divInfo.textContent = JSON.stringify(datas); //stringify()是把JSON物件轉成JSON物件
         });
 
 
