@@ -28,7 +28,7 @@ init_ws(sock)
 init_echo_ws(sock)   # 最簡單的 Echo Server → /api/ws/echo
 
 
-# http://127.0.0.1:5000/api/  #api哪裡來的
+# http://127.0.0.1:5000/api/  #api哪裡來的 -> 從 app.py 來的
  #設定路由
  # http://127.0.0.1:5000/api/hello
 api.add_resource(HelloWorld, '/hello')  
@@ -42,14 +42,15 @@ api.add_resource(Items, '/items')
 # http://127.0.0.1:5000/api/items/1
 api.add_resource(Item, '/items/<int:id>')
 
+# http://127.0.0.1:5000/api/cities
 api.add_resource(CityResource, '/cities')
 api.add_resource(DistrictResource, '/districts')
 api.add_resource(RoadResource, '/roads')
 
 
 api.add_resource(QueryStringDemo, '/demo/query')
-# http://127.0.0.1:5000/api/demo/path/John/25
-api.add_resource(PathDemo, '/demo/path/<string:name>/<int:age>')
+# http://127.0.0.1:5000/api/demo/path/John/25/john@email.com
+api.add_resource(PathDemo, '/demo/path/<string:name>/<int:age>/<string:email>')
 api.add_resource(FormDataDemo, '/demo/form')
 api.add_resource(JsonDemo, '/demo/json')  
 api.add_resource(ImageUploadDemo, '/demo/image')  
