@@ -33,6 +33,10 @@
         <button id="buttonPath" class="btn btn-primary mb-3">透過 URL Path 傳遞資料</button>
         <button id="buttonForm" class="btn btn-primary mb-3">資料包在 FormData 中傳遞</button>
         <button id="buttonJson" class="btn btn-primary mb-3">資料包在 JSON 中傳遞 </button>
+        <button id="buttonUpdate" class="btn btn-secondary mb-3">修改(PUT)</button>
+        <button id="buttonDelete" class="btn btn-secondary mb-3">刪除(DELETE)</button>
+
+
 
         <h2 class="display-6 fw-bold text-secondary my-4 pb-2 border-bottom">
             <i class="bi bi-image-fill me-2"></i>上傳圖片
@@ -102,6 +106,35 @@
         const divInfo = document.querySelector('#divInfo');
         const theImg = document.querySelector('#img1');
 
+        const btnUpdate = document.querySelector('#buttonUpdate');
+        const btnDelete = document.querySelector('#buttonDelete');
+
+        //修改Demo
+        btnUpdate.addEventListener('click', async () => {
+            const formData = new FormData();
+            formData.append()
+
+            formData.append('Name', 'leo');
+            formData.append('Email', 'leo@gmail.com');
+
+            const apiUrl = 'http://127.0.0.1:5000/api/members/1013';
+            const response = await fetch(apiUrl, {
+                method: 'PUT',
+                body: formData
+            })
+            const data = await response.json();
+            divInfo.textContent = JSON.stringify(data);
+        })
+
+        //刪除Demo
+        btnDelete.addEventListener('click', async () => {
+            const apiUrl = 'http://127.0.0.1:5000/api/members/1014';
+            const response = await fetch(apiUrl, {
+                method: 'DELETE'
+            })
+            const data = await response.json();
+            divInfo.textContent = JSON.stringify(user);
+        })
 
         //使用者選取了不同city就會觸發change事件
         selCity.addEventListener('change', () => {
